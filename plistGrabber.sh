@@ -1,10 +1,6 @@
 #!/bin/bash
 
-#echo 'Enter number of servers:'
-
-
-
-
+#Polls for number of servers
 while true
 do
     read -p 'Number of Severs: ' N 
@@ -12,41 +8,28 @@ do
         then 
             echo "Invalid";
         else 
-            echo $N
             break
-    fi
-    
-
+    fi    
     
 done
 
-echo $(($N+100))
+# Path and name of folder created to put plist folders in, uses time to second to ensure new folder each time.
+folderPath=~/Desktop/pLists-$(date +%F)_$(date +%H%M%S)
+
+# Makes the folder to put plist folders in
+mkdir $folderPath
+
 while true
 do
     if [[ $N -gt 0 ]]
     then 
         ID=$(($N+100))
-        echo 'Connecting to mBox ...'$ID
-        mount -t smbfs //prg:mbox@192.168.11.$ID/mbox%20$ID/Applications/Mbox/ ~/Desktop/prg
-        mkdir ~/Desktop/mbox/$ID
-        cp ~/Desktop/prg/*.plist ~/Desktop/mbox/$ID
-        #mount -t smbfs //prg:mbox@192.168.11.$ID
-        #rm ~/Desktop/prg/Desktop/Mbox\ Studio\ v444\ r10542*
-        #cp ./Mbox* ~/Desktop/prg/Desktop/
-        #cp ./Mbox* ~/Desktop/prg/Desktop/
-        diskutil unmount ~/Desktop/prg
+        echo 'Connecting to mBox '$ID
+        mkdir $folderPath/$ID
+        scp prg@192.168.11.$ID:/Applications/Mbox/*.plist $folderPath/$ID
         echo  $ID' Done'
         N=$(( $N - 1 ))
     else
         break
     fi
-
-#open 'smb://prg:mbox@192.168.11.101/prg/'
-#mount -t smbfs //prg:mbox@192.168.11.101/prg ~/Desktop/prg
-
-#echo 'Connected!'
-#cp ./Mbox* ~/Desktop/prg/Desktop/
-
-#diskutil unmount ~/Desktop/prg
-
 done
