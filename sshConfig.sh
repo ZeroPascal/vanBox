@@ -1,7 +1,18 @@
 #!/bin/bash
 
+while true
+do
+    read -p 'Create Local SSH Key? ' yn
+    case $yn in
+        [Yy]* ) echo 'Press enter throug the following'; ssh-keygen; echo 'Good Job. Now...' break;;
+        [Nn]* ) break;;
+        * ) echo 'Please answer yes or no.';;
+    esac
+done
+
 #Polls for number of servers
-echo 'Welcome to pListGrabber'
+
+
 while true
 do
     read -p 'Number of Severs: ' N 
@@ -14,20 +25,13 @@ do
     
 done
 
-# Path and name of folder created to put plist folders in, uses time to second to ensure new folder each time.
-folderPath=~/Desktop/pLists-$(date +%F)_$(date +%H%M%S)
-
-# Makes the folder to put plist folders in
-mkdir $folderPath
-
 while true
 do
     if [[ $N -gt 0 ]]
     then 
         ID=$(($N+100))
         echo 'Connecting to mBox '$ID
-        mkdir $folderPath/$ID
-        scp prg@192.168.11.$ID:/Applications/Mbox/*.plist $folderPath/$ID
+        ssh-copy-id prg@192.168.11.$ID
         echo  $ID' Done'
         N=$(( $N - 1 ))
     else
