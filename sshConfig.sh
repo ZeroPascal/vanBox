@@ -4,7 +4,7 @@ while true
 do
     read -p 'Create Local SSH Key? ' yn
     case $yn in
-        [Yy]* ) echo 'Press enter throug the following'; ssh-keygen; echo 'Good Job. Now...' break;;
+        [Yy]* ) echo 'Keeping pressing Enter through the following setup'; ssh-keygen; echo 'Good Job. Now...' break;;
         [Nn]* ) break;;
         * ) echo 'Please answer yes or no.';;
     esac
