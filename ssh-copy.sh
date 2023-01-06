@@ -1,7 +1,6 @@
 #!/bin/bash
 #The workaround for machines that do not have ssh-copy-id command in the terminal. Full credit to https://gist.github.com/nickbayley/ef2b6744b976c96db6e9 for the actual line.
 MIN=1
-MEDIA_DIRECTORY=/Applications/Mbox/Media/
 
 while true
 do
@@ -15,7 +14,7 @@ do
     fi    
 done
 
-echo 'Folder Maker Away!'
+echo 'SSH Config Away!'
 echo '-----------------------'
 
 while true
